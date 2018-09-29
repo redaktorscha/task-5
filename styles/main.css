@@ -16,7 +16,7 @@ body {
     color: #222;
     font-family: "Roboto", sans-serif;
     font-weight: 300;
-    background-image: url("../img/");
+    background-image: url("../img/backgr.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -24,7 +24,6 @@ body {
 .wrapper {
     display: flex;
     margin: 5% auto;
-    /*border: 1px solid red;*/
     width: 800px;
     box-shadow: 0 2px 4px #0091cb;
 }
@@ -48,11 +47,11 @@ body {
 
 .left-container {
     display: flex;
+    position: relative;
     box-sizing: border-box;
     border-radius: 4px 0 0 4px;
     flex-flow: column wrap;
     justify-content: center;
-    /*border: 1px solid green;*/
     width: 30%;
     padding: 20px 10px;
     background-color: #fff;
@@ -65,7 +64,6 @@ body {
     border-radius: 0 4px 4px 0;
     flex-flow: column wrap;
     justify-content: space-between;
-    /* border: 1px solid orange;*/
     width: 70%;
     padding: 20px 45px;
     background-color: #fff;
@@ -79,7 +77,7 @@ body {
 .star,
 .header {
     color: salmon;
-    font-weight: 600;
+    font-weight: bold;
 }
 
 .header {
@@ -101,12 +99,6 @@ body {
     box-sizing: border-box;
     margin-bottom: 8px;
     padding: 4px;
-    /*background-color: #f1f1f1; padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;*/
     font-size: 16px;
     text-align: left;
     border: none;
@@ -167,15 +159,6 @@ body {
     cursor: pointer;
 }
 
-/*.star-icon {
-  position: relative;
-  top: -10px;
-  background-image: url("https://www.iconsdb.com/icons/preview/color/0008FF/star-19-xxl.png");
-  background-size: 10px;
-  background-repeat: no-repeat;
-  background-position: 10px;
-}*/
-
 .asterisk:after {
     content: " *";
     color: salmon;
@@ -187,7 +170,7 @@ body {
 
 .input-box {
     display: flex;
-    flex-flow: row no wrap;
+    flex-flow: row nowrap;
 }
 
 .error::placeholder {
@@ -201,7 +184,7 @@ body {
     transform: scale(1.2);
     width: 100%;
     height: 30px;
-    display: block;
+    display: flex;
     box-sizing: border-box;
     margin-left: 15px;
     margin-bottom: 20px;
@@ -212,25 +195,27 @@ body {
 }
 
 .errormsg {
-    display: none;
+    visibility: hidden;
+    display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     height: 30px;
-    margin-bottom: 10px;
-    font-size: 14px;
+    margin-bottom: 15px;
+    font-size: 15px;
     color: salmon;
     font-weight: bold;
-    background: url(https://marketplace.canva.com/MAB_Od_qEcQ/1/thumbnail_large/canva-arrow-icon-direction-button-pointer-sign-MAB_Od_qEcQ.png);
+    background: url(../img/arrow.png);
     background-size: 15px;
     background-repeat: no-repeat;
     background-position: right 7px;
 }
 
 .error-box {
-    position: relative;
-    top: 7%;
-    display: flex;
+    position: absolute;
+    width: 90%;   
+    top: 37%;
+    display: block;
     flex-flow: column wrap;
 }
 
@@ -250,8 +235,9 @@ body {
 .checkbox+.checkbox-label:before {
     content: "";
     background-size: 20px;
-    background-image: url(https://www.iconsdb.com/icons/preview/color/5C5C5C/eye-xxl.png);
-    background-repeat: no-repeat;
+    background-image: url(../img/eye_grey.png);
+    background-repeat: no-repeat;    
+    background-position: right 5px;
     transition: 0.4s;
     display: inline-block;
     vertical-align: middle;
@@ -263,5 +249,8 @@ body {
 .checkbox:checked+.checkbox-label:before {
     content: "";
     background-size: 20px;
-    background-image: url(https://www.iconsdb.com/icons/preview/color/36FF17/eye-xxl.png);
+    background-image: url(../img/eye_green.png);
+    background-position: right 5px;
+    background-repeat: no-repeat;
+    transition: 0.4s;
 }

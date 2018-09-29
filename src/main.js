@@ -3,15 +3,14 @@ const error = () => {
     let targetEl = document.activeElement.name;
     let hiddenInp = document.getElementById(targetEl);
     targetInp.classList.add('error');
-    hiddenInp.style.display = 'flex';
+    hiddenInp.style.visibility = 'visible';
 }
 
 const checkName = () => {
-    const form = document.forms.register;
+    let form = document.forms.register;
     let firstName = form.elements.firstname;
     const firstNameRegexp = /^[^\s]+$/;
     let firstNameCheckRes = firstNameRegexp.test(firstName.value);
-    console.log(firstNameCheckRes);
     if (!firstNameCheckRes) {
         firstName.focus();
         error();
@@ -20,11 +19,10 @@ const checkName = () => {
 }
 
 const checkSurname = () => {
-    const form = document.forms.register;
+    let form = document.forms.register;
     let surname = form.elements.surname;
     const surnameRegexp = /^[^\s]+$/;
     let surnameCheckRes = surnameRegexp.test(surname.value);
-    console.log(surnameCheckRes);
     if (!surnameCheckRes) {
         surname.focus();
         error();
@@ -33,11 +31,10 @@ const checkSurname = () => {
 }
 
 const checkMail = () => {
-    const form = document.forms.register;
+    let form = document.forms.register;
     let email = form.elements.email;
     const emailRegexp = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]{0,63}@(?:[a-zA-Z0-9-]{1,63}\.){1,125}[a-zA-Z]{2,63}$/;
     let mailCheckRes = emailRegexp.test(email.value);
-    console.log(mailCheckRes);
     if (!mailCheckRes) {
         email.focus();
         error();
@@ -47,11 +44,10 @@ const checkMail = () => {
 
 
 const checkPass = () => {
-    const form = document.forms.register;
+    let form = document.forms.register;
     let password = form.elements.password;
     const passRegexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[a-zA-Z0-9@$!%*?&]{8,}$/;
     let passCheckRes = passRegexp.test(password.value);
-    console.log(passCheckRes);
     if (!passCheckRes) {
         password.focus();
         error();
@@ -60,16 +56,15 @@ const checkPass = () => {
 };
 
 const validPass = () => {
-    const form = document.forms.register;
+    let form = document.forms.register;
     let password = form.elements.password;
     let val_pass = form.elements.valpass;
     if (val_pass.value !== password.value) {
-        console.log('Пароль не совпадает');
         val_pass.focus();
         error();
+        return false;
     }
-    console.log("Пароли совпали");
-    return true;
+    return true; //проверить
 };
 
 const togglePass = () => {
@@ -92,16 +87,19 @@ const removeForm = () => {
 
 const createReg = () => {
     const registered = document.createElement('div');
-    registered.innerHTML = 'Спасибо за регистрацию :-)';
-    registered.classList.add('wrapper-reg'); 
+    let regText = document.createTextNode('Спасибо за регистрацию :-)');
+    registered.classList.add('wrapper-reg');
+    registered.appendChild(regText);
     document.body.appendChild(registered);
 }
 
-const clearForm = (evt) => {
-    evt.preventDefault();
-    const form = document.forms.register;
-    form.reset();
-};
+const clearForm = () => {
+    let form = document.forms.register;
+    let inputs = document.querySelectorAll('input.input, input.error');
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].value = '';
+    }
+}
 
 
 const thanksRegister = () => {
@@ -111,10 +109,12 @@ const thanksRegister = () => {
 
 const checkInputs = (evt) => {
     evt.preventDefault();
-    checkName();
-    checkSurname();
-
-    if (checkName() && checkSurname() && checkMail() && checkPass() && validPass()) {
+    let name = checkName(),
+        surname = checkSurname(),
+        email = checkMail(),
+        pass = checkPass(),
+        v_pass = validPass();
+    if (name && surname && email && pass && v_pass) {
         thanksRegister();
     }
 }
