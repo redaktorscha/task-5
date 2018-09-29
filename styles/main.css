@@ -6,7 +6,6 @@
         url("../font/Roboto-Regular.ttf") format("truetype");
 }
 
-;
 
 body {
     margin: 0;
@@ -16,7 +15,7 @@ body {
     color: #222;
     font-family: "Roboto", sans-serif;
     font-weight: 300;
-    background-image: url("../img/backgr.jpg");
+    background-image: url(../img/backgr1.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
