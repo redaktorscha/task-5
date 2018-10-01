@@ -8,16 +8,6 @@ const error = () => {
     targetInp.blur();
 };
 
-//если поле формы прошло проверку, подсветку и надпись убираем
-const checked = () => {
-    let targetInp = document.activeElement;
-    let targetEl = document.activeElement.name;
-    let hiddenDiv = document.getElementById(targetEl);
-    targetInp.classList.remove("error");
-    hiddenDiv.style.visibility = "hidden";
-    targetInp.blur();
-};
-
 //при нажатии на клавишу, когда поле формы заполняется, подсветка и надпись пропадают
 const refresh = () => {
     let targetInp = document.activeElement;
@@ -25,20 +15,19 @@ const refresh = () => {
     let hiddenDiv = document.getElementById(targetEl);
     targetInp.classList.remove("error");
     hiddenDiv.style.visibility = "hidden";
-};
+  };
 
 //проверка поля с именем
 const checkName = () => {
     let form = document.forms.register;
-    let firstName = form.elements.firstname;
-    firstName.focus();
+    let firstName = form.elements.firstname;   
     const firstNameRegexp = /^[^\s]+$/;
     let firstNameCheckRes = firstNameRegexp.test(firstName.value);
     if (!firstNameCheckRes) {
+        firstName.focus();
         error();
         return firstNameCheckRes;
     }
-    checked();
     return firstNameCheckRes;
 };
 
@@ -46,14 +35,13 @@ const checkName = () => {
 const checkSurname = () => {
     let form = document.forms.register;
     let surname = form.elements.surname;
-    surname.focus();
     const surnameRegexp = /^[^\s]+$/;
     let surnameCheckRes = surnameRegexp.test(surname.value);
     if (!surnameCheckRes) {
+        surname.focus();
         error();
         return surnameCheckRes;
     }
-    checked();
     return surnameCheckRes;
 };
 
@@ -61,29 +49,27 @@ const checkSurname = () => {
 const checkMail = () => {
     let form = document.forms.register;
     let email = form.elements.email;
-    email.focus();
     const emailRegexp = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]{0,63}@(?:[a-zA-Z0-9-]{1,63}\.){1,125}[a-zA-Z]{2,63}$/;
     let mailCheckRes = emailRegexp.test(email.value);
     if (!mailCheckRes) {
+        email.focus();
         error();
         return mailCheckRes;
     }
-    checked();
     return mailCheckRes;
 };
 
 //проверка поля с паролем
 const checkPass = () => {
     let form = document.forms.register;
-    let password = form.elements.password;
-    password.focus();
+    let password = form.elements.password;    
     const passRegexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#])[a-zA-Z0-9-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#]{8,}$/;
     let passCheckRes = passRegexp.test(password.value);
     if (!passCheckRes) {
+        password.focus();
         error();
         return passCheckRes;
     }
-    checked();
     return passCheckRes;
 };
 
@@ -92,12 +78,12 @@ const validPass = () => {
     let form = document.forms.register;
     let password = form.elements.password;
     let val_pass = form.elements.valpass;
-    val_pass.focus();
-    if (val_pass.value !== password.value) {
+    let val_passCheckRes = (val_pass.value === password.value);
+    if (!val_passCheckRes) {
+        val_pass.focus();
         error();
-        return false;
+        return val_passCheckRes;
     }
-    checked();
     return true;
 };
 
