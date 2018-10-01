@@ -161,5 +161,5 @@ showPass.addEventListener("click", togglePass);
 let showValPass = document.getElementById("check2");
 showValPass.addEventListener("click", toggleValPass);
 
-let form = document.forms.register;("inputs");
+let form = document.forms.register;
 form.addEventListener("keypress", refresh);
