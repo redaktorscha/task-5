@@ -84,7 +84,7 @@ const validPass = () => {
         error();
         return val_passCheckRes;
     }
-    return true;
+    return val_passCheckRes;
 };
 
 //открывает и закрывает пароль
