@@ -1,9 +1,9 @@
 
 //подсвечивает неправильно заполненное поле формы, показывает скрытую надпись слева
 const error = (): void => {
-    let targetInp = document.activeElement as HTMLInputElement;
-    let targetEl: string = (document.activeElement as HTMLFormElement).name;
-    let hiddenDiv = document.getElementById(targetEl) as HTMLDivElement;
+    const targetInp = document.activeElement as HTMLInputElement;
+    const targetEl: string = (document.activeElement as HTMLFormElement).name;
+    const hiddenDiv = document.getElementById(targetEl) as HTMLDivElement;
     targetInp.classList.add("error");
     hiddenDiv.style.visibility = "visible";
     targetInp.blur();
@@ -11,9 +11,9 @@ const error = (): void => {
 
 //при нажатии на клавишу, когда поле формы заполняется, подсветка и надпись пропадают
 const refresh = (): void => {
-    let targetInp = document.activeElement;
-    let targetEl: string = (document.activeElement as HTMLFormElement).name;
-    let hiddenDiv = document.getElementById(targetEl) as HTMLDivElement;
+    const targetInp = document.activeElement;
+    const targetEl: string = (document.activeElement as HTMLFormElement).name;
+    const hiddenDiv = document.getElementById(targetEl) as HTMLDivElement;
     targetInp.classList.remove("error");
     hiddenDiv.style.visibility = "hidden";
   };
@@ -21,9 +21,9 @@ const refresh = (): void => {
 //проверка поля с именем
 const checkName = (): boolean => {
     const form: HTMLFormElement = document.forms[0];
-    let firstName = form.elements[0] as HTMLInputElement;   
+    const firstName = form.elements[0] as HTMLInputElement;   
     const firstNameRegexp: RegExp = /^[^\s]+$/;
-    let firstNameCheckRes: boolean = firstNameRegexp.test(firstName.value);
+    const firstNameCheckRes: boolean = firstNameRegexp.test(firstName.value);
     if (!firstNameCheckRes) {
         firstName.focus();
         error();
@@ -35,9 +35,9 @@ const checkName = (): boolean => {
 //проверка поля с фамилией
 const checkSurname = (): boolean => {
     const form: HTMLFormElement = document.forms[0];
-    let surname = form.elements[1] as HTMLInputElement;
+    const surname = form.elements[1] as HTMLInputElement;
     const surnameRegexp: RegExp = /^[^\s]+$/;
-    let surnameCheckRes: boolean = surnameRegexp.test(surname.value);
+    const surnameCheckRes: boolean = surnameRegexp.test(surname.value);
     if (!surnameCheckRes) {
         surname.focus();
         error();
@@ -49,9 +49,9 @@ const checkSurname = (): boolean => {
 //проверка поля с имейлом
 const checkMail = (): boolean => {
     const form: HTMLFormElement = document.forms[0];
-    let email = form.elements[2] as HTMLInputElement;
+    const email = form.elements[2] as HTMLInputElement;
     const emailRegexp: RegExp = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]{0,63}@(?:[a-zA-Z0-9-]{1,63}\.){1,125}[a-zA-Z]{2,63}$/;
-    let mailCheckRes: boolean = emailRegexp.test(email.value);
+    const mailCheckRes: boolean = emailRegexp.test(email.value);
     if (!mailCheckRes) {
         email.focus();
         error();
@@ -63,9 +63,9 @@ const checkMail = (): boolean => {
 //проверка поля с паролем
 const checkPass = (): boolean => {
     const form: HTMLFormElement = document.forms[0];
-    let password = form.elements[3] as HTMLInputElement;    
+    const password = form.elements[3] as HTMLInputElement;    
     const passRegexp: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#])[a-zA-Z0-9-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#]{8,}$/;
-    let passCheckRes: boolean = passRegexp.test(password.value);
+    const passCheckRes: boolean = passRegexp.test(password.value);
     if (!passCheckRes) {
         password.focus();
         error();
@@ -77,9 +77,9 @@ const checkPass = (): boolean => {
 //проверка поля с подтверждением пароля
 const validPass = (): boolean => {
     const form: HTMLFormElement = document.forms[0];
-    let password = form.elements[3] as HTMLInputElement;
-    let val_pass = form.elements[5] as HTMLInputElement;
-    let val_passCheckRes: boolean = (val_pass.value === password.value);
+    const password = form.elements[3] as HTMLInputElement;
+    const val_pass = form.elements[5] as HTMLInputElement;
+    const val_passCheckRes: boolean = (val_pass.value === password.value);
     if (!val_passCheckRes) {
         val_pass.focus();
         error();
@@ -91,7 +91,7 @@ const validPass = (): boolean => {
 //открывает и закрывает пароль
 const togglePass = (): void => {
     const form = document.forms[0];
-    let password = form.elements[3] as HTMLInputElement;
+    const password = form.elements[3] as HTMLInputElement;
     password.type === "password" ?
         (password.type = "text") :
         (password.type = "password");
@@ -100,7 +100,7 @@ const togglePass = (): void => {
 //открывает и закрывает подтверждение пароля
 const toggleValPass = (): void => {
     const form = document.forms[0];
-    let val_pass = form.elements[5] as HTMLInputElement;
+    const val_pass = form.elements[5] as HTMLInputElement;
     val_pass.type === "password" ?
         (val_pass.type = "text") :
         (val_pass.type = "password");
@@ -115,7 +115,7 @@ const removeForm = (): void => {
 //создает приветствие в случае успешной регистрации
 const createReg = (): void => {
     const registered: HTMLDivElement = document.createElement("div");
-    let regText: Text = document.createTextNode("Спасибо за регистрацию :-)");
+    const regText: Text = document.createTextNode("Спасибо за регистрацию :-)");
     registered.classList.add("wrapper-reg");
     registered.appendChild(regText);
     document.body.appendChild(registered);
@@ -124,7 +124,7 @@ const createReg = (): void => {
 //очистка формы
 const clearForm = (): void => {
     const form: HTMLFormElement = document.forms[0];
-    let inputs = document.querySelectorAll("input.input, input.error") as NodeListOf<HTMLInputElement>;
+    const inputs = document.querySelectorAll("input.input, input.error") as NodeListOf<HTMLInputElement>;
     for (let i: number = 0; i < inputs.length; i++) {
         inputs[i].value = "";
         inputs[i].classList.remove("error");
@@ -138,7 +138,7 @@ const clearForm = (): void => {
 //проверка полей формы
 const checkInputs = (evt: Event): void => {
     evt.preventDefault();
-    let name: boolean = checkName(),
+    const name: boolean = checkName(),
         surname: boolean = checkSurname(),
         email: boolean = checkMail(),
         pass: boolean = checkPass(),
@@ -150,16 +150,16 @@ const checkInputs = (evt: Event): void => {
     }
 };
 
-let submit = document.getElementById("submit") as HTMLDivElement;
+const submit = document.getElementById("submit") as HTMLDivElement;
 submit.addEventListener("click", checkInputs);
 
-let reset = document.getElementById("reset") as HTMLDivElement;
+const reset = document.getElementById("reset") as HTMLDivElement;
 reset.addEventListener("click", clearForm);
 
-let showPass = document.getElementById("check1") as HTMLInputElement;
+const showPass = document.getElementById("check1") as HTMLInputElement;
 showPass.addEventListener("click", togglePass);
 
-let showValPass = document.getElementById("check2") as HTMLInputElement;
+const showValPass = document.getElementById("check2") as HTMLInputElement;
 showValPass.addEventListener("click", toggleValPass);
 
 const form: HTMLFormElement = document.forms[0];
