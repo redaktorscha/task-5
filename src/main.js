@@ -117,7 +117,7 @@ var clearForm = function () {
         inputs[i].value = "";
         inputs[i].classList.remove("error");
     }
-    var hiddenDivs = document.getElementsByClassName("er_group");
+    var hiddenDivs = document.querySelectorAll("er_group");
     for (var k = 0; k < hiddenDivs.length; k++) {
         hiddenDivs[k].style.visibility = "hidden";
     }

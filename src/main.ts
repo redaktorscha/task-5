@@ -124,12 +124,12 @@ const createReg = (): void => {
 //очистка формы
 const clearForm = (): void => {
     const form: HTMLFormElement = document.forms[0];
-    const inputs = document.querySelectorAll("input.input, input.error") as NodeListOf<HTMLInputElement>;
+    const inputs: NodeListOf<HTMLInputElement> = document.querySelectorAll("input.input, input.error");    
     for (let i: number = 0; i < inputs.length; i++) {
         inputs[i].value = "";
         inputs[i].classList.remove("error");
     }
-    let hiddenDivs = document.getElementsByClassName("er_group") as HTMLCollectionOf<HTMLDivElement>;
+    let hiddenDivs: NodeListOf<HTMLInputElement> = document.querySelectorAll("er_group");
     for (let k: number = 0; k < hiddenDivs.length; k++) {
         hiddenDivs[k].style.visibility = "hidden";
     }
