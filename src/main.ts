@@ -1,15 +1,8 @@
 
-/*interface IFormElements extends HTMLFormElement {
-    name: string;
-    style:;
-    value:
-    
-}*/
-
 //подсвечивает неправильно заполненное поле формы, показывает скрытую надпись слева
 const error = (): void => {
     let targetInp = document.activeElement as HTMLInputElement;
-    let targetEl = document.activeElement.name;
+    let targetEl: string = document.activeElement[name];
     let hiddenDiv = document.getElementById(targetEl) as HTMLDivElement;
     targetInp.classList.add("error");
     hiddenDiv.style.visibility = "visible";
@@ -19,7 +12,7 @@ const error = (): void => {
 //при нажатии на клавишу, когда поле формы заполняется, подсветка и надпись пропадают
 const refresh = (): void => {
     let targetInp = document.activeElement;
-    let targetEl = document.activeElement.name;
+    let targetEl: string = document.activeElement[name];
     let hiddenDiv = document.getElementById(targetEl) as HTMLDivElement;
     targetInp.classList.remove("error");
     hiddenDiv.style.visibility = "hidden";
