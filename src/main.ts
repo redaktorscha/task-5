@@ -2,7 +2,7 @@
 //подсвечивает неправильно заполненное поле формы, показывает скрытую надпись слева
 const error = (): void => {
     let targetInp = document.activeElement as HTMLInputElement;
-    let targetEl: string = document.activeElement[name];
+    let targetEl: string = (document.activeElement as HTMLFormElement).name;
     let hiddenDiv = document.getElementById(targetEl) as HTMLDivElement;
     targetInp.classList.add("error");
     hiddenDiv.style.visibility = "visible";
@@ -12,7 +12,7 @@ const error = (): void => {
 //при нажатии на клавишу, когда поле формы заполняется, подсветка и надпись пропадают
 const refresh = (): void => {
     let targetInp = document.activeElement;
-    let targetEl: string = document.activeElement[name];
+    let targetEl: string = (document.activeElement as HTMLFormElement).name;
     let hiddenDiv = document.getElementById(targetEl) as HTMLDivElement;
     targetInp.classList.remove("error");
     hiddenDiv.style.visibility = "hidden";
@@ -124,7 +124,7 @@ const createReg = (): void => {
 //очистка формы
 const clearForm = (): void => {
     const form: HTMLFormElement = document.forms[0];
-    let inputs: NodeListOf<HTMLInputElement> = document.querySelectorAll("input.input, input.error");
+    let inputs = document.querySelectorAll("input.input, input.error") as NodeListOf<HTMLInputElement>;
     for (let i: number = 0; i < inputs.length; i++) {
         inputs[i].value = "";
         inputs[i].classList.remove("error");

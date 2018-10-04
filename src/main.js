@@ -1,28 +1,26 @@
 //подсвечивает неправильно заполненное поле формы, показывает скрытую надпись слева
-const error = () => {
-    let targetInp = document.activeElement;
-    let targetEl = document.activeElement.name;
-    let hiddenDiv = document.getElementById(targetEl);
+var error = function () {
+    var targetInp = document.activeElement;
+    var targetEl = document.activeElement.name;
+    var hiddenDiv = document.getElementById(targetEl);
     targetInp.classList.add("error");
     hiddenDiv.style.visibility = "visible";
     targetInp.blur();
 };
-
 //при нажатии на клавишу, когда поле формы заполняется, подсветка и надпись пропадают
-const refresh = () => {
-    let targetInp = document.activeElement;
-    let targetEl = document.activeElement.name;
-    let hiddenDiv = document.getElementById(targetEl);
+var refresh = function () {
+    var targetInp = document.activeElement;
+    var targetEl = document.activeElement.name;
+    var hiddenDiv = document.getElementById(targetEl);
     targetInp.classList.remove("error");
     hiddenDiv.style.visibility = "hidden";
-  };
-
+};
 //проверка поля с именем
-const checkName = () => {
-    let form = document.forms.register;
-    let firstName = form.elements.firstname;   
-    const firstNameRegexp = /^[^\s]+$/;
-    let firstNameCheckRes = firstNameRegexp.test(firstName.value);
+var checkName = function () {
+    var form = document.forms[0];
+    var firstName = form.elements[0];
+    var firstNameRegexp = /^[^\s]+$/;
+    var firstNameCheckRes = firstNameRegexp.test(firstName.value);
     if (!firstNameCheckRes) {
         firstName.focus();
         error();
@@ -30,13 +28,12 @@ const checkName = () => {
     }
     return firstNameCheckRes;
 };
-
 //проверка поля с фамилией
-const checkSurname = () => {
-    let form = document.forms.register;
-    let surname = form.elements.surname;
-    const surnameRegexp = /^[^\s]+$/;
-    let surnameCheckRes = surnameRegexp.test(surname.value);
+var checkSurname = function () {
+    var form = document.forms[0];
+    var surname = form.elements[1];
+    var surnameRegexp = /^[^\s]+$/;
+    var surnameCheckRes = surnameRegexp.test(surname.value);
     if (!surnameCheckRes) {
         surname.focus();
         error();
@@ -44,13 +41,12 @@ const checkSurname = () => {
     }
     return surnameCheckRes;
 };
-
 //проверка поля с имейлом
-const checkMail = () => {
-    let form = document.forms.register;
-    let email = form.elements.email;
-    const emailRegexp = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]{0,63}@(?:[a-zA-Z0-9-]{1,63}\.){1,125}[a-zA-Z]{2,63}$/;
-    let mailCheckRes = emailRegexp.test(email.value);
+var checkMail = function () {
+    var form = document.forms[0];
+    var email = form.elements[2];
+    var emailRegexp = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]{0,63}@(?:[a-zA-Z0-9-]{1,63}\.){1,125}[a-zA-Z]{2,63}$/;
+    var mailCheckRes = emailRegexp.test(email.value);
     if (!mailCheckRes) {
         email.focus();
         error();
@@ -58,13 +54,12 @@ const checkMail = () => {
     }
     return mailCheckRes;
 };
-
 //проверка поля с паролем
-const checkPass = () => {
-    let form = document.forms.register;
-    let password = form.elements.password;    
-    const passRegexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#])[a-zA-Z0-9-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#]{8,}$/;
-    let passCheckRes = passRegexp.test(password.value);
+var checkPass = function () {
+    var form = document.forms[0];
+    var password = form.elements[3];
+    var passRegexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#])[a-zA-Z0-9-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#]{8,}$/;
+    var passCheckRes = passRegexp.test(password.value);
     if (!passCheckRes) {
         password.focus();
         error();
@@ -72,13 +67,12 @@ const checkPass = () => {
     }
     return passCheckRes;
 };
-
 //проверка поля с подтверждением пароля
-const validPass = () => {
-    let form = document.forms.register;
-    let password = form.elements.password;
-    let val_pass = form.elements.valpass;
-    let val_passCheckRes = (val_pass.value === password.value);
+var validPass = function () {
+    var form = document.forms[0];
+    var password = form.elements[3];
+    var val_pass = form.elements[5];
+    var val_passCheckRes = (val_pass.value === password.value);
     if (!val_passCheckRes) {
         val_pass.focus();
         error();
@@ -86,80 +80,64 @@ const validPass = () => {
     }
     return val_passCheckRes;
 };
-
 //открывает и закрывает пароль
-const togglePass = () => {
-    const form = document.forms.register;
-    let password = form.elements.password;
+var togglePass = function () {
+    var form = document.forms[0];
+    var password = form.elements[3];
     password.type === "password" ?
         (password.type = "text") :
         (password.type = "password");
 };
-
 //открывает и закрывает подтверждение пароля
-const toggleValPass = () => {
-    const form = document.forms.register;
-    let val_pass = form.elements.valpass;
+var toggleValPass = function () {
+    var form = document.forms[0];
+    var val_pass = form.elements[5];
     val_pass.type === "password" ?
         (val_pass.type = "text") :
         (val_pass.type = "password");
 };
-
 //удаление формы
-const removeForm = () => {
-    const wrapper = document.getElementById("wrapper");
+var removeForm = function () {
+    var wrapper = document.getElementById("wrapper");
     wrapper.remove();
 };
-
 //создает приветствие в случае успешной регистрации
-const createReg = () => {
-    const registered = document.createElement("div");
-    let regText = document.createTextNode("Спасибо за регистрацию :-)");
+var createReg = function () {
+    var registered = document.createElement("div");
+    var regText = document.createTextNode("Спасибо за регистрацию :-)");
     registered.classList.add("wrapper-reg");
     registered.appendChild(regText);
     document.body.appendChild(registered);
 };
-
 //очистка формы
-const clearForm = () => {
-    let form = document.forms.register;
-    let inputs = document.querySelectorAll("input.input, input.error");
-    for (let i = 0; i < inputs.length; i++) {
+var clearForm = function () {
+    var form = document.forms[0];
+    var inputs = document.querySelectorAll("input.input, input.error");
+    for (var i = 0; i < inputs.length; i++) {
         inputs[i].value = "";
         inputs[i].classList.remove("error");
     }
-    let hiddenDivs = document.getElementsByClassName("er_group");
-    for (let k = 0; k < hiddenDivs.length; k++) {
+    var hiddenDivs = document.getElementsByClassName("er_group");
+    for (var k = 0; k < hiddenDivs.length; k++) {
         hiddenDivs[k].style.visibility = "hidden";
     }
 };
-
 //проверка полей формы
-const checkInputs = evt => {
+var checkInputs = function (evt) {
     evt.preventDefault();
-    let name = checkName(),
-        surname = checkSurname(),
-        email = checkMail(),
-        pass = checkPass(),
-        v_pass = validPass();
-
+    var name = checkName(), surname = checkSurname(), email = checkMail(), pass = checkPass(), v_pass = validPass();
     if (name && surname && email && pass && v_pass) {
         removeForm();
         createReg();
     }
 };
-
-let submit = document.getElementById("submit");
+var submit = document.getElementById("submit");
 submit.addEventListener("click", checkInputs);
-
-let reset = document.getElementById("reset");
+var reset = document.getElementById("reset");
 reset.addEventListener("click", clearForm);
-
-let showPass = document.getElementById("check1");
+var showPass = document.getElementById("check1");
 showPass.addEventListener("click", togglePass);
-
-let showValPass = document.getElementById("check2");
+var showValPass = document.getElementById("check2");
 showValPass.addEventListener("click", toggleValPass);
-
-let form = document.forms.register;
+var form = document.forms[0];
 form.addEventListener("keypress", refresh);
