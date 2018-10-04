@@ -194,9 +194,9 @@
     flex-flow: row nowrap;
 }
 
-.error::placeholder {
+/*.error::placeholder {
     padding-left: 30px;
-}
+}*/
 
 .error {
     box-shadow: 0px 0px 2px 3px salmon;
