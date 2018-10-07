@@ -1,3 +1,5 @@
+@import 'variables', 'colors';
+
 .container {
     @include width;
     display: $display;
@@ -9,7 +11,7 @@
 
     .er_group {
         @include width(30%);
-        visibility: hidden;       
+        visibility: hidden;
         display: $display;
         align-items: center;
 
@@ -20,14 +22,14 @@
             font-weight: $font_bold;
         }
 
-        .er_group img {
+        & img {
             height: 15px;
             display: $display;
             margin-left: 15px;
         }
     }
 
-    .input-box {        
+    .input-box {
         @include width(70%);
         display: $display;
         box-sizing: $box_sizing;
@@ -43,11 +45,12 @@
             margin-right: 15px;
         }
 
-        .input {           
-           @include width;
-           @extend %input;                      
-           border-bottom: 1px solid $llgrey;        
-            
+        .input {
+            @include width;
+            @extend %input;
+            border: 0;
+            border-bottom: 1px solid $llgrey;
+
 
             &:focus {
                 border-bottom: 2px solid $aquagreen;
@@ -69,9 +72,9 @@
             cursor: $cursor;
 
             +.checkbox-label:before {
-                @extend %checkbox;              
+                @extend %checkbox;
                 background-image: url($image_dir + 'eye_grey.png');
-                
+
             }
 
             &:checked {
@@ -89,11 +92,12 @@
             cursor: $cursor;
         }
 
-        .error {            
+        .error {
             @include width;
             @extend %input;
+            border: none;
             box-shadow: 0px 0px 2px 3px salmon;
-           
+
 
             &::placeholder {
                 padding-left: 5px;

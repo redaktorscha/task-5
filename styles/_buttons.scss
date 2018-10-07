@@ -1,11 +1,13 @@
+@import 'variables', 'colors';
+
 .submit {
     @extend %btn;
     background-color: $aquagreen;
-    text-shadow: $shadow $green;
+    text-shadow: 0.5px 0.5px 0.5px $green;
 }
 
 .reset {
     @extend %btn;
     background-color: $peach;
-    text-shadow: $shadow $red;
+    text-shadow: 0.5px 0.5px 0.5px $red;
 }
