@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/redaktorscha/task-5/issues"
   },
-  "homepage": "https://github.com/redaktorscha/task-5#readme"
+  "homepage": "https://github.com/redaktorscha/task-5#readme",
+  "devDependencies": {
+    "typescript": "^3.1.1"
+  }
 }
