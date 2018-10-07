@@ -1,11 +1,10 @@
 import { error } from "./error";
 
 //проверка поля с фамилией
-export const checkSurname = (): boolean => {
+export const checkSurname = (regex: RegExp): boolean => {
     const form: HTMLFormElement = document.forms[0];
     const surname = form.elements[1] as HTMLInputElement;
-    const surnameRegexp: RegExp = /^[^\s]+$/;
-    const surnameCheckRes: boolean = surnameRegexp.test(surname.value);
+    const surnameCheckRes: boolean = regex.test(surname.value);
     if (!surnameCheckRes) {
         surname.focus();
         error();

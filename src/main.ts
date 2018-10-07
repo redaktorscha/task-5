@@ -10,15 +10,18 @@ import { toggleValPass } from './toggle_v_pass';
 import { removeForm } from './remove';
 import { createReg} from './create';
 import { clearForm } from './clear';
+import {nameRegexp} from './regexps';
+import {emailRegexp} from './regexps';
+import {passRegexp} from './regexps';
 
 
 //проверка полей формы
 const checkInputs = (evt: Event): void => {
     evt.preventDefault();
-    const name: boolean = checkName(),
-        surname: boolean = checkSurname(),
-        email: boolean = checkMail(),
-        pass: boolean = checkPass(),
+    const name: boolean = checkName(nameRegexp),
+        surname: boolean = checkSurname(nameRegexp),
+        email: boolean = checkMail(emailRegexp),
+        pass: boolean = checkPass(passRegexp),
         v_pass: boolean = validPass();
 
     if (name && surname && email && pass && v_pass) {
