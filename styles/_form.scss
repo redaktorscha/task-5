@@ -1,0 +1,104 @@
+.container {
+    @include width;
+    display: $display;
+    align-items: center;
+    box-sizing: $box_sizing;
+    height: 30px;
+    margin-bottom: 8px;
+    padding: 4px;
+
+    .er_group {
+        @include width(30%);
+        visibility: hidden;       
+        display: $display;
+        align-items: center;
+
+        .errormsg {
+            display: $display;
+            font-size: 15px;
+            color: $salmon;
+            font-weight: $font_bold;
+        }
+
+        .er_group img {
+            height: 15px;
+            display: $display;
+            margin-left: 15px;
+        }
+    }
+
+    .input-box {        
+        @include width(70%);
+        display: $display;
+        box-sizing: $box_sizing;
+        $display-flow: row nowrap;
+
+        .asterisk:after {
+            content: " *";
+            color: $salmon;
+            font-weight: $font_bold;
+            position: relative;
+            top: 0;
+            left: 0;
+            margin-right: 15px;
+        }
+
+        .input {           
+           @include width;
+           @extend %input;                      
+           border-bottom: 1px solid $llgrey;        
+            
+
+            &:focus {
+                border-bottom: 2px solid $aquagreen;
+                color: $mint;
+                transition: $transition;
+                outline: none;
+            }
+
+            &::placeholder {
+                color: $lgrey;
+            }
+
+        }
+
+        .checkbox {
+            opacity: 0;
+            position: absolute;
+            display: inline-block;
+            cursor: $cursor;
+
+            +.checkbox-label:before {
+                @extend %checkbox;              
+                background-image: url($image_dir + 'eye_grey.png');
+                
+            }
+
+            &:checked {
+                +.checkbox-label:before {
+                    @extend %checkbox;
+                    background-image: url($image_dir + 'eye_green.png');
+                }
+
+            }
+        }
+
+        .checkbox-label {
+            position: relative;
+            display: inline-block;
+            cursor: $cursor;
+        }
+
+        .error {            
+            @include width;
+            @extend %input;
+            box-shadow: 0px 0px 2px 3px salmon;
+           
+
+            &::placeholder {
+                padding-left: 5px;
+            }
+        }
+
+    }
+}

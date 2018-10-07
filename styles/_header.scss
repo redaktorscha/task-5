@@ -1,0 +1,17 @@
+.header {
+    color: $salmon;
+    font-weight: $font_bold;
+    font-size: 40px;
+}
+
+.text {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 50px;
+    font-weight: $font_norm;
+
+    .star {
+        color: $salmon;
+        font-weight: $font_bold;
+    }
+}

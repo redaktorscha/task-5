@@ -1,0 +1,54 @@
+@import 'colors', 'buttons', 'header', 'form', 'variables';
+
+
+.body {
+    margin: 0;
+    padding: 0;
+    display: $display;
+    color: $dgrey;
+    font-family: $font_family;
+    background-image: url($image_dir + 'backgr1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    .wrapper {
+        @extend %wrapper_main;
+        margin: 15px auto;
+        flex-flow: column wrap;
+        align-items: flex-end;
+        padding: 20px 45px;
+
+        .header-block {
+            @include width(70%);
+            display: $display;
+            flex-flow: column wrap;
+            text-align: left;
+        }
+
+        .form {
+            @include width;
+            display: $display;
+            flex-flow: column wrap;
+            justify-content: space-between;
+        }
+
+        .buttons {
+            @include width(70%);
+            display: $display;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+        }
+    }
+
+    .wrapper-reg {
+        @extend %wrapper_main;
+        margin: 20% auto;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+        color: $salmon;
+        font-size: 30px;
+        font-weight: $font_bold;
+    }
+}

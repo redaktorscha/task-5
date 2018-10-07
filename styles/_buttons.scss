@@ -1,0 +1,11 @@
+.submit {
+    @extend %btn;
+    background-color: $aquagreen;
+    text-shadow: $shadow $green;
+}
+
+.reset {
+    @extend %btn;
+    background-color: $peach;
+    text-shadow: $shadow $red;
+}

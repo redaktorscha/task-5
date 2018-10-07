@@ -1,0 +1,68 @@
+$cursor: pointer;
+$border_radius: 4px;
+$image_dir: '../img/';
+$font_bold: 700;
+$font_norm: 400;
+$font_family: "Roboto",
+sans-serif;
+$display: flex;
+$box_sizing: border-box;
+$transition: 0.2s ease;
+$shadow: 0.5px 0.5px 0.5px;
+
+
+@mixin width($w: 100%) {
+    width: $w;
+}
+
+%wrapper_main {
+    display: $display;
+    width: 800px;
+    box-shadow: 0 2px 4px $blue;
+    background-color: $white;
+    opacity: 0.8;
+    box-sizing: $box_sizing;
+    border-radius: $border_radius;
+}
+
+%btn {
+    cursor: $cursor;
+    text-transform: uppercase;
+    transition: 0.1s ease;
+    padding: 5px 20px;
+    margin-top: 35px;
+    margin-bottom: 25px;
+    border: none;
+    outline: none;
+    color: $white;
+    border-radius: $border_radius - 2px;
+        &:hover,
+        &:focus {
+            opacity: 0.9;
+            transform: scale(1.1);
+            cursor: $cursor;
+        }
+}
+
+%checkbox {
+    background-size: 20px;
+    content: "";
+    background-repeat: no-repeat;
+    background-position: right 5px;
+    transition: 0.4s;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    padding: 4px;
+}
+
+%input {
+    outline: none;
+    border: none;
+    display: $display;
+    font-size: 16px;
+    text-align: left;
+    height: 30px;
+    transition: $transition;
+    box-sizing: $box_sizing;
+}
