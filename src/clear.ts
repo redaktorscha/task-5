@@ -6,7 +6,7 @@ export const clearForm = (): void => {
         inputs[i].value = "";
         inputs[i].classList.remove("error");
     }
-    let hiddenDivs: NodeListOf<HTMLInputElement> = document.querySelectorAll("er_group");
+    let hiddenDivs = document.getElementsByClassName("er_group") as HTMLCollectionOf<HTMLDivElement>;
     for (let k: number = 0; k < hiddenDivs.length; k++) {
         hiddenDivs[k].style.visibility = "hidden";
     }
