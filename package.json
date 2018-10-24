@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/redaktorscha/task-5#readme",
   "devDependencies": {
+    "jest": "^23.6.0",
     "typescript": "^3.1.1"
   }
 }

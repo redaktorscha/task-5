@@ -103,124 +103,56 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({"src\\refresh.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-//при нажатии на клавишу, когда поле формы заполняется, подсветка и надпись пропадают
-var refresh = exports.refresh = function refresh() {
-    var targetInp = document.activeElement;
-    var targetEl = document.activeElement.name;
-    var hiddenDiv = document.getElementById(targetEl);
-    targetInp.classList.remove("error");
-    hiddenDiv.style.visibility = "hidden";
-};
-},{}],"src\\error.ts":[function(require,module,exports) {
+})({"src\\highlightError.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 //подсвечивает неправильно заполненное поле формы, показывает скрытую надпись слева
-var error = exports.error = function error() {
+var highlightError = exports.highlightError = function highlightError() {
     var targetInp = document.activeElement;
-    var targetEl = document.activeElement.name;
-    var hiddenDiv = document.getElementById(targetEl);
+    var targetElName = document.activeElement.name;
+    var ErrorMsgDiv = document.getElementById(targetElName);
     targetInp.classList.add("error");
-    hiddenDiv.style.visibility = "visible";
+    ErrorMsgDiv.style.visibility = "visible";
     targetInp.blur();
 };
-},{}],"src\\name.ts":[function(require,module,exports) {
+},{}],"src\\checkInputs.ts":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.checkInputs = undefined;
+
+var _highlightError = require('./highlightError');
+
+//проверка инпутов (имя, фамилия, пароль)
+var checkInputs = exports.checkInputs = function checkInputs(inputToCheck, regex) {
+    var checkRes = regex.test(inputToCheck.value);
+    if (!checkRes) {
+        inputToCheck.focus();
+        (0, _highlightError.highlightError)();
+        return checkRes;
+    }
+    return checkRes;
+};
+},{"./highlightError":"src\\highlightError.ts"}],"src\\removeHighlightedError.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.checkName = undefined;
-
-var _error = require("./error");
-
-//проверка поля с именем
-var checkName = exports.checkName = function checkName(regex) {
-    var form = document.forms[0];
-    var firstName = form.elements[0];
-    var firstNameCheckRes = regex.test(firstName.value);
-    if (!firstNameCheckRes) {
-        firstName.focus();
-        (0, _error.error)();
-        return firstNameCheckRes;
-    }
-    return firstNameCheckRes;
+//при нажатии на клавишу, когда поле формы заполняется, подсветка и надпись пропадают
+var removeHighlightedError = exports.removeHighlightedError = function removeHighlightedError() {
+    var targetInp = document.activeElement;
+    var targetElName = document.activeElement.name;
+    var ErrorMsgDiv = document.getElementById(targetElName);
+    targetInp.classList.remove("error");
+    ErrorMsgDiv.style.visibility = "hidden";
 };
-},{"./error":"src\\error.ts"}],"src\\surname.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.checkSurname = undefined;
-
-var _error = require("./error");
-
-//проверка поля с фамилией
-var checkSurname = exports.checkSurname = function checkSurname(regex) {
-    var form = document.forms[0];
-    var surname = form.elements[1];
-    var surnameCheckRes = regex.test(surname.value);
-    if (!surnameCheckRes) {
-        surname.focus();
-        (0, _error.error)();
-        return surnameCheckRes;
-    }
-    return surnameCheckRes;
-};
-},{"./error":"src\\error.ts"}],"src\\mail.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.checkMail = undefined;
-
-var _error = require("./error");
-
-//проверка поля с имейлом
-var checkMail = exports.checkMail = function checkMail(regex) {
-    var form = document.forms[0];
-    var email = form.elements[2];
-    var mailCheckRes = regex.test(email.value);
-    if (!mailCheckRes) {
-        email.focus();
-        (0, _error.error)();
-        return mailCheckRes;
-    }
-    return mailCheckRes;
-};
-},{"./error":"src\\error.ts"}],"src\\pass.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.checkPass = undefined;
-
-var _error = require("./error");
-
-//проверка поля с паролем
-var checkPass = exports.checkPass = function checkPass(regex) {
-    var form = document.forms[0];
-    var password = form.elements[3];
-    var passCheckRes = regex.test(password.value);
-    if (!passCheckRes) {
-        password.focus();
-        (0, _error.error)();
-        return passCheckRes;
-    }
-    return passCheckRes;
-};
-},{"./error":"src\\error.ts"}],"src\\v_pass.ts":[function(require,module,exports) {
+},{}],"src\\validPass.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -228,46 +160,29 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.validPass = undefined;
 
-var _error = require("./error");
+var _highlightError = require("./highlightError");
 
-//проверка поля с подтверждением пароля
-var validPass = exports.validPass = function validPass() {
-    var form = document.forms[0];
-    var password = form.elements[3];
-    var val_pass = form.elements[5];
-    var val_passCheckRes = val_pass.value === password.value;
+//проверка поля с подтверждением пароля на соответствие паролю
+var validPass = exports.validPass = function validPass(passField, valPassField) {
+    var val_passCheckRes = valPassField.value === passField.value;
     if (!val_passCheckRes) {
-        val_pass.focus();
-        (0, _error.error)();
+        valPassField.focus();
+        (0, _highlightError.highlightError)();
         return val_passCheckRes;
     }
     return val_passCheckRes;
 };
-},{"./error":"src\\error.ts"}],"src\\toggle_pass.ts":[function(require,module,exports) {
+},{"./highlightError":"src\\highlightError.ts"}],"src\\togglePass.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 //открывает и закрывает пароль
-var togglePass = exports.togglePass = function togglePass() {
-    var form = document.forms[0];
-    var password = form.elements[3];
-    password.type === "password" ? password.type = "text" : password.type = "password";
+var togglePass = exports.togglePass = function togglePass(passwordInput) {
+    passwordInput.type = passwordInput.type === "password" ? "text" : "password";
 };
-},{}],"src\\toggle_v_pass.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-//открывает и закрывает подтверждение пароля
-var toggleValPass = exports.toggleValPass = function toggleValPass() {
-    var form = document.forms[0];
-    var val_pass = form.elements[5];
-    val_pass.type === "password" ? val_pass.type = "text" : val_pass.type = "password";
-};
-},{}],"src\\remove.ts":[function(require,module,exports) {
+},{}],"src\\removeForm.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -278,7 +193,7 @@ var removeForm = exports.removeForm = function removeForm() {
     var wrapper = document.getElementById("wrapper");
     wrapper.remove();
 };
-},{}],"src\\create.ts":[function(require,module,exports) {
+},{}],"src\\createReg.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -292,7 +207,7 @@ var createReg = exports.createReg = function createReg() {
     registered.appendChild(regText);
     document.body.appendChild(registered);
 };
-},{}],"src\\clear.ts":[function(require,module,exports) {
+},{}],"src\\clearForm.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -328,54 +243,50 @@ exports.passRegexp = passRegexp;
 },{}],"src\\main.ts":[function(require,module,exports) {
 'use strict';
 
-var _refresh = require('./refresh');
+var _checkInputs = require('./checkInputs');
 
-var _name = require('./name');
+var _removeHighlightedError = require('./removeHighlightedError');
 
-var _surname = require('./surname');
+var _validPass = require('./validPass');
 
-var _mail = require('./mail');
+var _togglePass = require('./togglePass');
 
-var _pass = require('./pass');
+var _removeForm = require('./removeForm');
 
-var _v_pass = require('./v_pass');
+var _createReg = require('./createReg');
 
-var _toggle_pass = require('./toggle_pass');
-
-var _toggle_v_pass = require('./toggle_v_pass');
-
-var _remove = require('./remove');
-
-var _create = require('./create');
-
-var _clear = require('./clear');
+var _clearForm = require('./clearForm');
 
 var _regexps = require('./regexps');
 
-//проверка полей формы
-var checkInputs = function checkInputs(evt) {
+//валидация формы
+var validateForm = function validateForm(evt) {
     evt.preventDefault();
-    var name = (0, _name.checkName)(_regexps.nameRegexp),
-        surname = (0, _surname.checkSurname)(_regexps.nameRegexp),
-        email = (0, _mail.checkMail)(_regexps.emailRegexp),
-        pass = (0, _pass.checkPass)(_regexps.passRegexp),
-        v_pass = (0, _v_pass.validPass)();
-    if (name && surname && email && pass && v_pass) {
-        (0, _remove.removeForm)();
-        (0, _create.createReg)();
+    var fName = (0, _checkInputs.checkInputs)(document.getElementById('f_name'), _regexps.nameRegexp),
+        sName = (0, _checkInputs.checkInputs)(document.getElementById('s_name'), _regexps.nameRegexp),
+        mail = (0, _checkInputs.checkInputs)(document.getElementById('mail'), _regexps.emailRegexp),
+        pass = (0, _checkInputs.checkInputs)(document.getElementById('psw'), _regexps.passRegexp),
+        v_pass = (0, _validPass.validPass)(document.getElementById('psw'), document.getElementById('valpsw'));
+    if (fName && sName && mail && pass && v_pass) {
+        (0, _removeForm.removeForm)();
+        (0, _createReg.createReg)();
     }
 };
-var submit = document.getElementById("submit");
-submit.addEventListener("click", checkInputs);
-var reset = document.getElementById("reset");
-reset.addEventListener("click", _clear.clearForm);
-var showPass = document.getElementById("check1");
-showPass.addEventListener("click", _toggle_pass.togglePass);
-var showValPass = document.getElementById("check2");
-showValPass.addEventListener("click", _toggle_v_pass.toggleValPass);
+var submitForm = document.getElementById('sbm');
+submitForm.addEventListener('click', validateForm);
+var resetForm = document.getElementById('rst');
+resetForm.addEventListener('click', _clearForm.clearForm);
+var showPass = document.getElementById('check1');
+showPass.addEventListener('click', function () {
+    return (0, _togglePass.togglePass)(document.getElementById('psw'));
+});
+var showValPass = document.getElementById('check2');
+showValPass.addEventListener('click', function () {
+    return (0, _togglePass.togglePass)(document.getElementById('valpsw'));
+});
 var form = document.forms[0];
-form.addEventListener("keypress", _refresh.refresh);
-},{"./refresh":"src\\refresh.ts","./name":"src\\name.ts","./surname":"src\\surname.ts","./mail":"src\\mail.ts","./pass":"src\\pass.ts","./v_pass":"src\\v_pass.ts","./toggle_pass":"src\\toggle_pass.ts","./toggle_v_pass":"src\\toggle_v_pass.ts","./remove":"src\\remove.ts","./create":"src\\create.ts","./clear":"src\\clear.ts","./regexps":"src\\regexps.ts"}],"..\\..\\..\\..\\AppData\\Roaming\\npm\\node_modules\\parcel-bundler\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
+form.addEventListener('keypress', _removeHighlightedError.removeHighlightedError);
+},{"./checkInputs":"src\\checkInputs.ts","./removeHighlightedError":"src\\removeHighlightedError.ts","./validPass":"src\\validPass.ts","./togglePass":"src\\togglePass.ts","./removeForm":"src\\removeForm.ts","./createReg":"src\\createReg.ts","./clearForm":"src\\clearForm.ts","./regexps":"src\\regexps.ts"}],"..\\..\\..\\..\\AppData\\Roaming\\npm\\node_modules\\parcel-bundler\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -404,7 +315,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '62413' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '60214' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

@@ -1,8 +1,8 @@
 //при нажатии на клавишу, когда поле формы заполняется, подсветка и надпись пропадают
-export const refresh = (): void => {
+export const removeHighlightedError = (): void => { 
     const targetInp = document.activeElement as HTMLInputElement;
-    const targetEl: string = (document.activeElement as HTMLFormElement).name;
-    const hiddenDiv = document.getElementById(targetEl) as HTMLDivElement;
+    const targetElName: string = (document.activeElement as HTMLFormElement).name;
+    const ErrorMsgDiv = document.getElementById(targetElName) as HTMLDivElement;
     targetInp.classList.remove("error");
-    hiddenDiv.style.visibility = "hidden";
+    ErrorMsgDiv.style.visibility = "hidden";
   };

@@ -20,14 +20,14 @@
                 букву, 1 цифру и 1 символ.</p>
 
         </div>
-        <form name='register' class='form'>
+        <form id='register' name='register' class='form'>
             <div class='container'>
                 <div id='firstname' class='er_group'>
                     <div class='errormsg'>Пожалуйста, заполните</div>
                     <img src="./img/arrow.png" />
                 </div>
                 <div class='input-box'><label for="first-name" class='asterisk'></label><input type="text" placeholder="Ваше имя"
-                        class='input' name="firstname" autocomplete="off" required />
+                        class='input' name="firstname" id='f_name' autocomplete="off" required />
                 </div>
             </div>
             <div class='container'>
@@ -36,7 +36,7 @@
                     <img src="./img/arrow.png" />
                 </div>
                 <div class='input-box'><label for="surname" class='asterisk'></label><input type="text" class='input'
-                        placeholder="Ваша фамилия" name="surname" autocomplete="off" required />
+                        placeholder="Ваша фамилия" name="surname" id='s_name' autocomplete="off" required />
                 </div>
             </div>
             <div class='container'>
@@ -45,7 +45,7 @@
                     <img src="./img/arrow.png" />
                 </div>
                 <div class='input-box'><label for="email" class='asterisk'></label><input type="text" class='input'
-                        placeholder="yourname@name.com" name="email" autocomplete="off" required />
+                        placeholder="yourname@name.com" name="email" id='mail' autocomplete="off" required />
                 </div>
             </div>
             <div class='container'>
@@ -54,7 +54,7 @@
                     <img src="./img/arrow.png" />
                 </div>
                 <div class='input-box'><label for="password" class='asterisk'></label><input type="password"
-                        placeholder="Ваш пароль" class='input' name="password" required />
+                        placeholder="Ваш пароль" class='input' name="password" id='psw' required />
                     <input type="checkbox" class='checkbox' id='check1' name='check1'>
                     <label for='check1' class='checkbox-label'></label></div>
             </div>
@@ -64,14 +64,14 @@
                     <img src="./img/arrow.png" />
                 </div>
                 <div class='input-box'><label for="valpass" class='asterisk'></label><input type="password" class='input'
-                        placeholder="Подтверждение пароля" name="valpass" required>
+                        placeholder="Подтверждение пароля" name="valpass" id='valpsw' required>
                     <input type="checkbox" class='checkbox' id='check2' name='check2'>
                     <label for='check2' class='checkbox-label'></label></div>
             </div>
 
         </form>
-        <div class='buttons'><button id='submit' class='submit'>зарегистрироваться</button>
-            <button id='reset' class='reset'>очистить форму</button></div>
+        <div class='buttons'><button id='sbm' class='submit'>зарегистрироваться</button>
+            <button id='rst' class='reset'>очистить форму</button></div>
     </div>
 </body>
 

@@ -1,10 +1,10 @@
 
 //подсвечивает неправильно заполненное поле формы, показывает скрытую надпись слева
-export const error = (): void => {
+export const highlightError = (): void => { 
     const targetInp = document.activeElement as HTMLInputElement;
-    const targetEl: string = (document.activeElement as HTMLFormElement).name;
-    const hiddenDiv = document.getElementById(targetEl) as HTMLDivElement;
+    const targetElName: string = (document.activeElement as HTMLFormElement).name;
+    const ErrorMsgDiv = document.getElementById(targetElName) as HTMLDivElement;
     targetInp.classList.add("error");
-    hiddenDiv.style.visibility = "visible";
+    ErrorMsgDiv.style.visibility = "visible";
     targetInp.blur();
 };

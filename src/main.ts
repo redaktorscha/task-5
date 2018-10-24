@@ -1,46 +1,41 @@
-import { error } from "./error";
-import { refresh } from './refresh';
-import { checkName } from './name';
-import { checkSurname } from './surname';
-import { checkMail } from './mail';
-import { checkPass } from './pass';
-import { validPass } from './v_pass';
-import { togglePass } from './toggle_pass';
-import { toggleValPass } from './toggle_v_pass';
-import { removeForm } from './remove';
-import { createReg} from './create';
-import { clearForm } from './clear';
-import {nameRegexp} from './regexps';
-import {emailRegexp} from './regexps';
-import {passRegexp} from './regexps';
+import { checkInputs } from './checkInputs';
+import { removeHighlightedError } from './removeHighlightedError';
+import { validPass } from './validPass';
+import { togglePass } from './togglePass';
+import { removeForm } from './removeForm';
+import { createReg} from './createReg';
+import { clearForm } from './clearForm';
+import { nameRegexp} from './regexps';
+import { emailRegexp } from './regexps';
+import { passRegexp } from './regexps';
 
 
-//проверка полей формы
-const checkInputs = (evt: Event): void => {
+//валидация формы
+const validateForm = (evt: Event): void => {
     evt.preventDefault();
-    const name: boolean = checkName(nameRegexp),
-        surname: boolean = checkSurname(nameRegexp),
-        email: boolean = checkMail(emailRegexp),
-        pass: boolean = checkPass(passRegexp),
-        v_pass: boolean = validPass();
+    const fName = checkInputs(document.getElementById('f_name') as HTMLInputElement, nameRegexp),
+        sName = checkInputs(document.getElementById('s_name') as HTMLInputElement, nameRegexp),
+        mail = checkInputs(document.getElementById('mail') as HTMLInputElement, emailRegexp),
+        pass = checkInputs(document.getElementById('psw') as HTMLInputElement, passRegexp),
+        v_pass = validPass(document.getElementById('psw') as HTMLInputElement, document.getElementById('valpsw') as HTMLInputElement);
 
-    if (name && surname && email && pass && v_pass) {
+    if (fName && sName && mail && pass && v_pass) {
         removeForm();
         createReg();
     }
 };
 
-const submit = document.getElementById("submit") as HTMLDivElement;
-submit.addEventListener("click", checkInputs);
+const submitForm = document.getElementById('sbm') as HTMLDivElement;
+submitForm.addEventListener('click', validateForm);
 
-const reset = document.getElementById("reset") as HTMLDivElement;
-reset.addEventListener("click", clearForm);
+const resetForm = document.getElementById('rst') as HTMLDivElement;
+resetForm.addEventListener('click', clearForm);
 
-const showPass = document.getElementById("check1") as HTMLInputElement;
-showPass.addEventListener("click", togglePass);
+const showPass = document.getElementById('check1') as HTMLInputElement;
+showPass.addEventListener('click', () => togglePass(document.getElementById('psw') as HTMLInputElement));
 
-const showValPass = document.getElementById("check2") as HTMLInputElement;
-showValPass.addEventListener("click", toggleValPass);
+const showValPass = document.getElementById('check2') as HTMLInputElement;
+showValPass.addEventListener('click', () => togglePass(document.getElementById('valpsw') as HTMLInputElement));
 
 const form: HTMLFormElement = document.forms[0];
-form.addEventListener("keypress", refresh);
+form.addEventListener('keypress', removeHighlightedError);
