@@ -103,73 +103,159 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({"..\\..\\..\\..\\AppData\\Roaming\\npm\\node_modules\\parcel-bundler\\src\\builtins\\bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
+})({"js\\highlightError.js":[function(require,module,exports) {
+"use strict";
 
-  return bundleURL;
-}
+exports.__esModule = true;
+//подсвечивает неправильно заполненное поле формы, показывает скрытую надпись слева
+exports.highlightError = function () {
+    var targetInp = document.activeElement;
+    var targetElName = document.activeElement.name;
+    var ErrorMsgDiv = document.getElementById(targetElName);
+    targetInp.classList.add("error");
+    ErrorMsgDiv.style.visibility = "visible";
+    targetInp.blur();
+};
+},{}],"js\\checkInputs.js":[function(require,module,exports) {
+"use strict";
 
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
-    if (matches) {
-      return getBaseURL(matches[0]);
+exports.__esModule = true;
+var highlightError_1 = require("./highlightError");
+//проверка инпутов (имя, фамилия, пароль)
+exports.checkInputs = function (inputToCheck, regex) {
+    var checkRes = regex.test(inputToCheck.value);
+    if (!checkRes) {
+        inputToCheck.focus();
+        highlightError_1.highlightError();
+        return checkRes;
     }
-  }
+    return checkRes;
+};
+},{"./highlightError":"js\\highlightError.js"}],"js\\removeHighlightedError.js":[function(require,module,exports) {
+"use strict";
 
-  return '/';
-}
+exports.__esModule = true;
+//при нажатии на клавишу, когда поле формы заполняется, подсветка и надпись пропадают
+exports.removeHighlightedError = function () {
+    var targetInp = document.activeElement;
+    var targetElName = document.activeElement.name;
+    var ErrorMsgDiv = document.getElementById(targetElName);
+    targetInp.classList.remove("error");
+    ErrorMsgDiv.style.visibility = "hidden";
+};
+},{}],"js\\validPass.js":[function(require,module,exports) {
+"use strict";
 
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"..\\..\\..\\..\\AppData\\Roaming\\npm\\node_modules\\parcel-bundler\\src\\builtins\\css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-  newLink.onload = function () {
-    link.remove();
-  };
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
+exports.__esModule = true;
+var highlightError_1 = require("./highlightError");
+//проверка поля с подтверждением пароля на соответствие паролю
+exports.validPass = function (passField, valPassField) {
+    var val_passCheckRes = valPassField.value === passField.value;
+    if (!val_passCheckRes) {
+        valPassField.focus();
+        highlightError_1.highlightError();
+        return val_passCheckRes;
     }
+    return val_passCheckRes;
+};
+},{"./highlightError":"js\\highlightError.js"}],"js\\togglePass.js":[function(require,module,exports) {
+"use strict";
 
-    cssTimeout = null;
-  }, 50);
-}
+exports.__esModule = true;
+//открывает и закрывает пароль
+exports.togglePass = function (passwordInput) {
+    passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+};
+},{}],"js\\removeForm.js":[function(require,module,exports) {
+"use strict";
 
-module.exports = reloadCSS;
-},{"./bundle-url":"..\\..\\..\\..\\AppData\\Roaming\\npm\\node_modules\\parcel-bundler\\src\\builtins\\bundle-url.js"}],"styles\\main.scss":[function(require,module,exports) {
+exports.__esModule = true;
+//удаление формы
+exports.removeForm = function () {
+    var wrapper = document.getElementById("wrapper");
+    wrapper.remove();
+};
+},{}],"js\\createReg.js":[function(require,module,exports) {
+"use strict";
 
-var reloadCSS = require('_css_loader');
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"./..\\img\\eye_grey.png":[["eye_grey.c9f4b034.png","img\\eye_grey.png"],"img\\eye_grey.png"],"./..\\img\\eye_green.png":[["eye_green.bd11f0f7.png","img\\eye_green.png"],"img\\eye_green.png"],"./..\\img\\backgr1.png":[["backgr1.c3a7583b.png","img\\backgr1.png"],"img\\backgr1.png"],"_css_loader":"..\\..\\..\\..\\AppData\\Roaming\\npm\\node_modules\\parcel-bundler\\src\\builtins\\css-loader.js"}],"..\\..\\..\\..\\AppData\\Roaming\\npm\\node_modules\\parcel-bundler\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
+exports.__esModule = true;
+//создает приветствие в случае успешной регистрации
+exports.createReg = function () {
+    var registered = document.createElement("div");
+    var regText = document.createTextNode("Спасибо за регистрацию :-)");
+    registered.classList.add("wrapper-reg");
+    registered.appendChild(regText);
+    document.body.appendChild(registered);
+};
+},{}],"js\\clearForm.js":[function(require,module,exports) {
+"use strict";
+
+exports.__esModule = true;
+//очистка формы
+exports.clearForm = function () {
+    var form = document.forms[0];
+    var inputs = document.querySelectorAll("input.input, input.error");
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].value = "";
+        inputs[i].classList.remove("error");
+    }
+    var hiddenDivs = document.getElementsByClassName("er_group");
+    for (var k = 0; k < hiddenDivs.length; k++) {
+        hiddenDivs[k].style.visibility = "hidden";
+    }
+};
+},{}],"js\\regexps.js":[function(require,module,exports) {
+"use strict";
+
+exports.__esModule = true;
+var nameRegexp = /^[^\s]+$/;
+exports.nameRegexp = nameRegexp;
+var emailRegexp = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]{0,63}@(?:[a-zA-Z0-9-]{1,63}\.){1,125}[a-zA-Z]{2,63}$/;
+exports.emailRegexp = emailRegexp;
+var passRegexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#])[a-zA-Z0-9-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#]{8,}$/;
+exports.passRegexp = passRegexp;
+},{}],"js\\main.js":[function(require,module,exports) {
+"use strict";
+
+exports.__esModule = true;
+var checkInputs_1 = require("./checkInputs");
+var removeHighlightedError_1 = require("./removeHighlightedError");
+var validPass_1 = require("./validPass");
+var togglePass_1 = require("./togglePass");
+var removeForm_1 = require("./removeForm");
+var createReg_1 = require("./createReg");
+var clearForm_1 = require("./clearForm");
+var regexps_1 = require("./regexps");
+var regexps_2 = require("./regexps");
+var regexps_3 = require("./regexps");
+//валидация формы
+var validateForm = function validateForm(evt) {
+    evt.preventDefault();
+    var fName = checkInputs_1.checkInputs(document.getElementById('f_name'), regexps_1.nameRegexp),
+        sName = checkInputs_1.checkInputs(document.getElementById('s_name'), regexps_1.nameRegexp),
+        mail = checkInputs_1.checkInputs(document.getElementById('mail'), regexps_2.emailRegexp),
+        pass = checkInputs_1.checkInputs(document.getElementById('psw'), regexps_3.passRegexp),
+        v_pass = validPass_1.validPass(document.getElementById('psw'), document.getElementById('valpsw'));
+    if (fName && sName && mail && pass && v_pass) {
+        removeForm_1.removeForm();
+        createReg_1.createReg();
+    }
+};
+var submitForm = document.getElementById('sbm');
+submitForm.addEventListener('click', validateForm);
+var resetForm = document.getElementById('rst');
+resetForm.addEventListener('click', clearForm_1.clearForm);
+var showPass = document.getElementById('check1');
+showPass.addEventListener('click', function () {
+    return togglePass_1.togglePass(document.getElementById('psw'));
+});
+var showValPass = document.getElementById('check2');
+showValPass.addEventListener('click', function () {
+    return togglePass_1.togglePass(document.getElementById('valpsw'));
+});
+var form = document.forms[0];
+form.addEventListener('keypress', removeHighlightedError_1.removeHighlightedError);
+},{"./checkInputs":"js\\checkInputs.js","./removeHighlightedError":"js\\removeHighlightedError.js","./validPass":"js\\validPass.js","./togglePass":"js\\togglePass.js","./removeForm":"js\\removeForm.js","./createReg":"js\\createReg.js","./clearForm":"js\\clearForm.js","./regexps":"js\\regexps.js"}],"..\\..\\..\\..\\AppData\\Roaming\\npm\\node_modules\\parcel-bundler\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -339,4 +425,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},["..\\..\\..\\..\\AppData\\Roaming\\npm\\node_modules\\parcel-bundler\\src\\builtins\\hmr-runtime.js"], null)
+},{}]},{},["..\\..\\..\\..\\AppData\\Roaming\\npm\\node_modules\\parcel-bundler\\src\\builtins\\hmr-runtime.js","js\\main.js"], null)
+//# sourceMappingURL=/main.f1ab8913.map
