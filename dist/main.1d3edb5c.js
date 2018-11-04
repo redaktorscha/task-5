@@ -110,12 +110,12 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 //подсвечивает неправильно заполненное поле формы, показывает скрытую надпись слева
-var highlightError = exports.highlightError = function highlightError() {
-    var targetInp = document.activeElement;
-    var targetElName = document.activeElement.name;
-    var ErrorMsgDiv = document.getElementById(targetElName);
+var highlightError = exports.highlightError = function highlightError(errorMsgDiv, targetInp) {
+    //const targetInp = document.activeElement as HTMLInputElement;
+    //const targetElName: string = (document.activeElement as HTMLFormElement).name;
+    //const errorMsgDiv = document.getElementById(targetElName) as HTMLDivElement;
     targetInp.classList.add("error");
-    ErrorMsgDiv.style.visibility = "visible";
+    errorMsgDiv.style.visibility = "visible";
     targetInp.blur();
 };
 },{}],"src\\checkInputs.ts":[function(require,module,exports) {
@@ -130,10 +130,10 @@ var _highlightError = require('./highlightError');
 
 //проверка инпутов (имя, фамилия, пароль)
 var checkInputs = exports.checkInputs = function checkInputs(inputToCheck, regex) {
-    var checkRes = regex.test(inputToCheck.value);
+    var checkRes = regex.test(inputToCheck.value.trim());
     if (!checkRes) {
         inputToCheck.focus();
-        (0, _highlightError.highlightError)();
+        (0, _highlightError.highlightError)(document.getElementById(document.activeElement.name), document.activeElement);
         return checkRes;
     }
     return checkRes;
@@ -145,12 +145,12 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 //при нажатии на клавишу, когда поле формы заполняется, подсветка и надпись пропадают
-var removeHighlightedError = exports.removeHighlightedError = function removeHighlightedError() {
-    var targetInp = document.activeElement;
-    var targetElName = document.activeElement.name;
-    var ErrorMsgDiv = document.getElementById(targetElName);
+var removeHighlightedError = exports.removeHighlightedError = function removeHighlightedError(errorMsgDiv, targetInp) {
+    //const targetInp = document.activeElement as HTMLInputElement;
+    //const targetElName: string = (document.activeElement as HTMLFormElement).name;
+    //const errorMsgDiv = document.getElementById(targetElName) as HTMLDivElement;
     targetInp.classList.remove("error");
-    ErrorMsgDiv.style.visibility = "hidden";
+    errorMsgDiv.style.visibility = "hidden";
 };
 },{}],"src\\validPass.ts":[function(require,module,exports) {
 "use strict";
@@ -167,7 +167,7 @@ var validPass = exports.validPass = function validPass(passField, valPassField) 
     var val_passCheckRes = valPassField.value === passField.value;
     if (!val_passCheckRes) {
         valPassField.focus();
-        (0, _highlightError.highlightError)();
+        (0, _highlightError.highlightError)(document.getElementById(document.activeElement.name), document.activeElement);
         return val_passCheckRes;
     }
     return val_passCheckRes;
@@ -232,7 +232,7 @@ var clearForm = exports.clearForm = function clearForm() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var nameRegexp = /^[^\s]+$/;
+var nameRegexp = /^.+$/;
 exports.nameRegexp = nameRegexp;
 
 var emailRegexp = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]{0,63}@(?:[a-zA-Z0-9-]{1,63}\.){1,125}[a-zA-Z]{2,63}$/;
@@ -285,7 +285,9 @@ showValPass.addEventListener('click', function () {
     return (0, _togglePass.togglePass)(document.getElementById('valpsw'));
 });
 var form = document.forms[0];
-form.addEventListener('keypress', _removeHighlightedError.removeHighlightedError);
+form.addEventListener('keypress', function () {
+    return (0, _removeHighlightedError.removeHighlightedError)(document.getElementById(document.activeElement.name), document.activeElement);
+});
 },{"./checkInputs":"src\\checkInputs.ts","./removeHighlightedError":"src\\removeHighlightedError.ts","./validPass":"src\\validPass.ts","./togglePass":"src\\togglePass.ts","./removeForm":"src\\removeForm.ts","./createReg":"src\\createReg.ts","./clearForm":"src\\clearForm.ts","./regexps":"src\\regexps.ts"}],"..\\..\\..\\..\\AppData\\Roaming\\npm\\node_modules\\parcel-bundler\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -315,7 +317,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '60214' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '53350' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

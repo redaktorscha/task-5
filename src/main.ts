@@ -29,7 +29,7 @@ const submitForm = document.getElementById('sbm') as HTMLDivElement;
 submitForm.addEventListener('click', validateForm);
 
 const resetForm = document.getElementById('rst') as HTMLDivElement;
-resetForm.addEventListener('click', clearForm);
+resetForm.addEventListener('click', () => clearForm(document.querySelectorAll("input.input, input.error"), document.getElementsByClassName("er_group") as HTMLCollectionOf<HTMLDivElement>));
 
 const showPass = document.getElementById('check1') as HTMLInputElement;
 showPass.addEventListener('click', () => togglePass(document.getElementById('psw') as HTMLInputElement));
@@ -37,5 +37,5 @@ showPass.addEventListener('click', () => togglePass(document.getElementById('psw
 const showValPass = document.getElementById('check2') as HTMLInputElement;
 showValPass.addEventListener('click', () => togglePass(document.getElementById('valpsw') as HTMLInputElement));
 
-const form: HTMLFormElement = document.forms[0];
-form.addEventListener('keypress', removeHighlightedError);
+const form: HTMLFormElement = document.getElementById('register') as HTMLFormElement;
+form.addEventListener('keypress', () => removeHighlightedError(document.getElementById((document.activeElement as HTMLFormElement).name) as HTMLDivElement, document.activeElement as HTMLInputElement));

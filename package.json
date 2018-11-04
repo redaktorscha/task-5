@@ -18,20 +18,19 @@
   },
   "homepage": "https://github.com/redaktorscha/task-5#readme",
   "devDependencies": {
-    "@babel/preset-env": "^7.1.0",
+    "@types/jest": "^23.3.9",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.6.0",
     "babel-preset-env": "^1.7.0",
     "jest": "^23.6.0",
     "regenerator-runtime": "^0.12.1",
-    "typescript": "^3.1.1"
+    "ts-jest": "^23.10.4",
+    "typescript": "^3.1.6"
   },
   "jest": {
     "collectCoverage": true
   },
-  "babel": {
-    "presets": [
-      "env"
-    ]
+  "dependencies": {
+    "npm": "^6.4.1"
   }
 }
